@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MediFlow Dashboard</title>
+<link rel="stylesheet" href="{% static 'mediflow/dashboard.css' %}">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+</head>
+<body>
+
+<div class="layout">
+
+    
+    <aside class="sidebar">
+        <h2 class="sidebar-logo"><i class="ri-capsule-fill"></i> MediFlow</h2>
+        <ul class="sidebar-menu">
+            <li class="active"><i class="ri-home-5-line"></i> Home</li>
+            <li><i class="ri-search-eye-line"></i> Lens</li>
+            <li><i class="ri-user-3-line"></i> Account</li>
+            <li><i class="ri-search-line"></i> Search</li>
+            <li><i class="ri-star-smile-line"></i> What's New</li>
+            <li><i class="ri-group-line"></i> Customers</li>
+            <li><i class="ri-tools-line"></i> Services</li>
+        </ul>
+    </aside>
+
+    
+    <main class="dashboard">
+
+        
+        <div class="topbar">
+            <h1>Dashboard</h1>
+            <div class="profile">
+                <img src="saireddy.jpg" alt="user">
+                <span>Sai Reddy</span>
+            </div>
+        </div>
+
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon-box blue"><i class="ri-capsule-line"></i></div>
+                <h3>Uploaded Medicines</h3>
+                <p>34</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box green"><i class="ri-truck-line"></i></div>
+                <h3>Pending Pickups</h3>
+                <p>5</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box purple"><i class="ri-hand-heart-line"></i></div>
+                <h3>NGO Requests</h3>
+                <p>12</p>
+            </div>
+        </div>
+
+        
+       <center> <section class="pickup-card">
+            <h2><i class="ri-map-pin-time-line"></i> Pickup Scheduling</h2>
+            <form id="pickupForm">
+                <div class="form-group">
+                    <label>Pickup Address</label>
+                    <input type="text" id="address" placeholder="Enter pickup address" required>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="pickupDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Time Slot</label>
+                    <div class="time-slots">
+                        <button type="button">10 AM – 12 PM</button>
+                        <button type="button">12 PM – 2 PM</button>
+                        <button type="button">2 PM – 4 PM</button>
+                        <button type="button">4 PM – 6 PM</button>
+                    </div>
+                </div>
+                <button type="submit" class="confirm-btn">Confirm Pickup</button>
+            </form>
+        </section>
+    </center>
+
+    </main>
+
+</div>
+
+<script src="pickup.js"></script>
+</body>
+</html>
