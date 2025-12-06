@@ -1,77 +1,205 @@
-{% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MediFlow Registration</title>
-<link rel="stylesheet" href="{% static 'mediflow/register.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MediFlow — Create Account</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9ba3b2;
+      --accent:#06b6d4;
+      --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.03);
+      --radius:18px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071426 0%, #071426 40%, #031124 100%);
+      color:#e6eef7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .auth-wrapper{width:100%;max-width:500px;}
+    .auth-card{
+      background:radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 55%),
+                 linear-gradient(145deg, rgba(15,23,36,0.97), rgba(4,7,18,0.99));
+      border-radius:var(--radius);
+      padding:26px 26px 20px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.8);
+      border:1px solid rgba(148,163,184,0.25);
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:10px;margin-bottom:10px;
+    }
+    .brand-logo{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;
+      font-size:22px;
+      box-shadow:0 8px 24px rgba(124,58,237,0.35);
+    }
+    .brand span{font-weight:700;font-size:20px;}
+
+    .auth-title{font-size:22px;font-weight:600;margin-bottom:3px;}
+    .auth-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .form-group{margin-bottom:14px;}
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:6px;
+      color:#e5e7eb;
+    }
+    .input-wrap{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 11px;
+      border-radius:12px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.38);
+    }
+    .input-wrap i{font-size:18px;color:var(--muted);}
+    .input-wrap input{
+      border:none;
+      outline:none;
+      background:transparent;
+      flex:1;
+      color:#e5e7eb;
+      font-size:14px;
+    }
+    .input-wrap input::placeholder{color:#6b7280;}
+
+    .extra-note{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .btn-primary{
+      width:100%;
+      padding:11px 0;
+      border-radius:12px;
+      border:none;
+      outline:none;
+      font-weight:600;
+      font-size:15px;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#020617;
+      box-shadow:0 10px 36px rgba(0,0,0,0.85);
+      transition:transform .15s, box-shadow .15s, filter .15s;
+      margin-top:6px;
+    }
+    .btn-primary:hover{
+      filter:brightness(1.03);
+      transform:translateY(-1px);
+      box-shadow:0 15px 42px rgba(15,23,42,0.95);
+    }
+
+    .auth-footer{
+      margin-top:10px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .auth-footer a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:500;
+    }
+
+    @media(max-width:540px){
+      .auth-card{padding:22px 18px 18px;}
+      .grid-2{grid-template-columns:1fr;}
+    }
+  </style>
 </head>
-
 <body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-logo"><i class="ri-capsule-fill"></i></div>
+        <span>MediFlow</span>
+      </div>
 
-<div class="reg-container">
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-sub">Join MediFlow and start donating or managing medicine pickups.</p>
 
-    <div class="reg-card">
-        <h2><i class="ri-user-add-line"></i> Create Account</h2>
-        <p class="subtitle">Join MediFlow and start contributing today</p>
-
-        <form>
-
-            <div class="form-group">
-                <label>Full Name</label>
-                <div class="input-box">
-                    <i class="ri-user-line"></i>
-                    <input type="text" placeholder="Enter your full name" required>
-                </div>
+      <form>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="fullname">Full name</label>
+            <div class="input-wrap">
+              <i class="ri-user-line"></i>
+              <input id="fullname" type="text" placeholder="Sai Reddy" required>
             </div>
+          </div>
 
-            <div class="form-group">
-                <label>Email</label>
-                <div class="input-box">
-                    <i class="ri-mail-line"></i>
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <div class="input-wrap">
+              <i class="ri-phone-line"></i>
+              <input id="phone" type="tel" placeholder="+91 98765 43210" required>
             </div>
+          </div>
+        </div>
 
-            <div class="form-group">
-                <label>Phone Number</label>
-                <div class="input-box">
-                    <i class="ri-phone-line"></i>
-                    <input type="tel" placeholder="Enter your phone number" required>
-                </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <div class="input-wrap">
+            <i class="ri-mail-line"></i>
+            <input id="email" type="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <i class="ri-lock-2-line"></i>
+              <input id="password" type="password" placeholder="Create a password" required>
             </div>
+            <p class="extra-note">Min 8 characters for better security.</p>
+          </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-box">
-                    <i class="ri-lock-2-line"></i>
-                    <input type="password" placeholder="Create a password" required>
-                </div>
+          <div class="form-group">
+            <label for="confirm">Confirm password</label>
+            <div class="input-wrap">
+              <i class="ri-lock-password-line"></i>
+              <input id="confirm" type="password" placeholder="Re‑enter password" required>
             </div>
+          </div>
+        </div>
 
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <div class="input-box">
-                    <i class="ri-lock-password-line"></i>
-                    <input type="password" placeholder="Re-enter password" required>
-                </div>
-            </div>
+        <button type="submit" class="btn-primary">Create account</button>
+      </form>
 
-            <button class="reg-btn">Register</button>
-
-        </form>
-
-        <p class="login-text">
-            Already have an account? 
-            <a href="login.html">Login</a>
-            <a href="{% url 'dashboard' %}">Dashboard</a>
-        </p>
-
+      <p class="auth-footer">
+        Already have an account?
+        <a href="{% url 'home' %}">Login</a>
+        <!-- Django: href="{% url 'home' %}" -->
+      </p>
     </div>
-
-</div>
-
+  </div>
 </body>
 </html>

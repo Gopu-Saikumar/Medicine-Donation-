@@ -1,50 +1,218 @@
-{% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MediFlow Login</title>
-<link rel="stylesheet" href="{% static 'style.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" >
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MediFlow — Login</title>
 
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9ba3b2;
+      --accent:#06b6d4;
+      --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.03);
+      --radius:18px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071426 0%, #071426 40%, #031124 100%);
+      color:#e6eef7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .auth-wrapper{
+      width:100%;
+      max-width:410px;
+    }
+
+    .auth-card{
+      background:linear-gradient(145deg, rgba(15,23,36,0.98), rgba(4,7,18,0.98));
+      border-radius:var(--radius);
+      padding:26px 26px 24px;
+      box-shadow:0 18px 50px rgba(0,0,0,0.6);
+      border:1px solid rgba(148,163,184,0.18);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .brand-logo{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;
+      font-size:22px;
+      box-shadow:0 8px 24px rgba(124,58,237,0.35);
+    }
+    .brand span{
+      font-weight:700;
+      font-size:20px;
+    }
+
+    .auth-title{
+      font-size:22px;
+      font-weight:600;
+      margin-bottom:4px;
+    }
+    .auth-sub{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .form-group{
+      margin-bottom:16px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:6px;
+      color:#e5e7eb;
+    }
+
+    .input-wrap{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 11px;
+      border-radius:12px;
+      background:rgba(15,23,42,0.9);
+      border:1px solid rgba(148,163,184,0.35);
+    }
+    .input-wrap i{
+      font-size:18px;
+      color:var(--muted);
+    }
+    .input-wrap input{
+      border:none;
+      outline:none;
+      background:transparent;
+      flex:1;
+      color:#e5e7eb;
+      font-size:14px;
+    }
+    .input-wrap input::placeholder{
+      color:#6b7280;
+    }
+
+    .row-between{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .row-between a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:500;
+    }
+
+    .btn-primary{
+      width:100%;
+      padding:11px 0;
+      border-radius:12px;
+      border:none;
+      outline:none;
+      font-weight:600;
+      font-size:15px;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#020617;
+      box-shadow:0 10px 35px rgba(0,0,0,0.75);
+      transition:transform .15s, box-shadow .15s, filter .15s;
+    }
+    .btn-primary:hover{
+      filter:brightness(1.02);
+      transform:translateY(-1px);
+      box-shadow:0 14px 40px rgba(15,23,42,0.9);
+    }
+
+    .divider{
+      margin:16px 0 10px;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .auth-footer{
+      margin-top:6px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .auth-footer a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:500;
+    }
+
+    @media(max-width:480px){
+      .auth-card{padding:22px 18px 18px;}
+    }
+  </style>
 </head>
-
 <body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-logo"><i class="ri-capsule-fill"></i></div>
+        <span>MediFlow</span>
+      </div>
 
-<div class="login-container">
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Login to manage your donations and pickups.</p>
 
-    <div class="login-card">
-        <h2><i class="ri-capsule-fill"></i> MediFlow</h2>
-        <p class="subtitle">Welcome back! Please login to continue</p>
+      <form>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <i class="ri-mail-line"></i>
+            <input id="email" type="email" placeholder="you@example.com" required>
+          </div>
+        </div>
 
-        <form>
-            <div class="form-group">
-                <label>Email</label>
-                <div class="input-box">
-                    <i class="ri-mail-line"></i>
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <i class="ri-lock-2-line"></i>
+            <input id="password" type="password" placeholder="Enter your password" required>
+          </div>
+        </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-box">
-                    <i class="ri-lock-2-line"></i>
-                    <input type="password" placeholder="Enter your password" required>
-                </div>
-            </div>
+        <div class="row-between">
+          <label style="display:flex;align-items:center;gap:6px;">
+            <input type="checkbox" style="accent-color:#06b6d4;">
+            <span>Remember me</span>
+          </label>
+          <a href="#">Forgot password?</a>
+        </div>
 
-            <button class="login-btn">login
-            </button>
-        </form>
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
 
-        <p class="signup-text">Don’t have an account? 
-            <a href="{% url 'registration' %}">Sign Up</a>
-        </p>
-
+      <p class="auth-footer">
+        Don’t have an account?
+        <a href="{% url 'registration' %}">Create one</a>
+        <!-- In Django: href="{% url 'registration' %}" -->
+      </p>
     </div>
-</div>
-
+  </div>
 </body>
 </html>
+
