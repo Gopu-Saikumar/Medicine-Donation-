@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from mediflow.views import home,registration,dashboard
+from mediflow.views import home,registration,dashboard,landing
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home, name='home'),
+    path('',landing , name='landing'),
+    path('login/',home, name='home'),
     path('registration/',registration, name='registration'),
     path('dashboard/',dashboard, name='dashboard')
 ]
