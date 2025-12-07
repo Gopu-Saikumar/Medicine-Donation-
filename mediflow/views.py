@@ -10,3 +10,8 @@ def dashboard(request):
     return render(request,'dashboard.html')
 
 # Create your views here.
+def NGOlogin(request):
+    return render(request,'NGOlogin.html')
+
+def NGOregistration(request):
+    return render(request,'NGOregistration.html')    

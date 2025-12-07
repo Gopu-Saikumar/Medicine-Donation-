@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-  <!-- Basic styling (self-contained for easy drop-in) -->
+  <!-- Reused styling from your landing page -->
   <style>
     :root{
       --bg:#0f1724;
@@ -24,7 +24,7 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-body{
+    body{
       margin:0;
       background: linear-gradient(180deg,#071426 0%, #071426 40%, #031124 100%);
       color:#e6eef7;
@@ -33,7 +33,6 @@ body{
       line-height:1.45;
       padding:32px 16px;
     }
-
 
     .container{max-width:var(--maxw);margin:0 auto;}
 
@@ -92,6 +91,26 @@ body{
     .feature h4{margin:0 0 6px}
     .feature p{margin:0;color:var(--muted);font-size:14px}
 
+    /* Login Features section (new) */
+    .login-features{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-bottom:28px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .card h3{margin:0 0 8px}
+    .card ul{margin:0;padding:0 0 0 18px;color:var(--muted)}
+    .card li{margin:8px 0;font-size:14px}
+     .card a.primary{background:var(--accent);color:#04111a;font-weight:600}
+
+     .card a{color:var(--muted);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:8px}
+    .card a.primary{background:var(--accent);color:#04111a;font-weight:600}
+    .card a:hover{color:#fff}
+
     /* How it works */
     .how{display:flex;gap:18px;align-items:center;padding:18px;background:transparent;border-radius:12px}
     .steps{display:flex;flex-direction:column;gap:12px}
@@ -118,6 +137,7 @@ body{
       .hero{grid-template-columns:1fr; padding:20px}
       .features{grid-template-columns:repeat(2,1fr)}
       .hero-right{order:2}
+      .login-features{grid-template-columns:1fr}
     }
     @media (max-width:640px){
       header{flex-direction:column;align-items:flex-start;gap:12px}
@@ -147,7 +167,7 @@ body{
       <nav aria-label="Primary">
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
-        <a href="{% url 'home' %}" class="primary" role="button">Get Started</a>
+        <a href="#login-features" class="primary" role="button">Login Features</a>
       </nav>
     </header>
 
@@ -209,6 +229,35 @@ body{
       <div class="feature" role="article" aria-labelledby="f3">
         <h4 id="f3"><i class="ri-truck-line" style="margin-right:8px"></i> Pickup tracking</h4>
         <p>Live status for pickups, receipts for donors, and audit logs for NGOs — transparent and accountable.</p>
+      </div>
+    </section>
+
+    <!-- NEW: Login Features Section (Donor & NGO) -->
+    <section id="login-features" class="login-features" aria-labelledby="login-features-title">
+      <div class="card" role="region" aria-labelledby="donor-login-title">
+        <h3 id="donor-login-title"><i class="ri-user-add-line" style="margin-right:8px"></i> Login as Donor — Key Features</h3>
+        <ul>
+          <li><strong>Donate Unused Medicines Easily</strong><br class="visually-hidden"> Upload details of medicines with expiry date and image.</li>
+          <li><strong>Expiry Date Auto-Validation</strong><br class="visually-hidden"> System checks if the medicine is valid before accepting.</li>
+          <li><strong>Track Donation Status</strong><br class="visually-hidden"> Know whether your medicine is approved, picked up, or requested by an NGO.</li>
+          <li><strong>Edit or Delete Donations</strong><br class="visually-hidden"> Modify details of medicines before NGO approval or remove entries.</li>
+          <li><strong>Notifications</strong><br class="visually-hidden"> Receive alerts for pickups, approvals, expiry warnings, or NGO messages.</li>
+          <li><strong>Profile Management</strong><br class="visually-hidden"> Update personal info, address, mobile number, and password.</li><br>
+          <a href="{% url 'home' %}" class="primary" role="button">Login as Donor</a>
+        </ul>
+      </div>
+
+      <div class="card" role="region" aria-labelledby="ngo-login-title">
+        <h3 id="ngo-login-title"><i class="ri-organization-chart" style="margin-right:8px"></i> Login as NGO — Key Features</h3>
+        <ul>
+          <li><strong>Access Available Medicines</strong><br class="visually-hidden"> View all medicines donated by users in your region.</li>
+          <li><strong>Request & Schedule Pickups</strong><br class="visually-hidden"> Choose medicines you need and set a pickup date.</li>
+          <li><strong>Real-Time Alerts</strong><br class="visually-hidden"> Get notifications about newly added medicines and those expiring soon.</li>
+          <li><strong>Manage Pickups</strong><br class="visually-hidden"> View upcoming, completed, and missed pickups; coordinate with donors and partners.</li>
+          <li><strong>Efficient Redistribution</strong><br class="visually-hidden"> Ensure timely delivery to underprivileged communities.</li>
+          <li><strong>Analytics</strong><br class="visually-hidden"> Basic counts and history to measure collection and distribution impact.</li><br>
+         <a href="{% url 'NGOlogin' %}" class="primary" role="button">Login as NGO</a>
+        </ul>
       </div>
     </section>
 
