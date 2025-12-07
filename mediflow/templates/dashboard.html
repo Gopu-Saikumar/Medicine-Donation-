@@ -1,92 +1,497 @@
-{% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MediFlow Dashboard</title>
-<link rel="stylesheet" href="{% static 'mediflow/dashboard.css' %}">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MediFlow — Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#020617;
+      --bg-soft:#050816;
+      --card:#0b1220;
+      --muted:#9ba3b2;
+      --accent:#06b6d4;
+      --accent-2:#7c3aed;
+      --danger:#fb7185;
+      --success:#22c55e;
+      --radius:16px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(circle at top left,#020617 0,#020617 40%,#020617 100%);
+      color:#e5e7eb;
+      display:flex;
+    }
+
+    /* Layout */
+    .sidebar{
+      width:230px;
+      background:linear-gradient(180deg,#020617,#020617);
+      border-right:1px solid rgba(148,163,184,0.25);
+      padding:20px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+    }
+    .brand-logo{
+      width:40px;height:40px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-size:22px;
+      box-shadow:0 10px 30px rgba(124,58,237,0.4);
+    }
+    .brand span{font-weight:700;font-size:19px;}
+
+    .menu{
+      list-style:none;
+      margin-top:10px;
+    }
+    .menu li{
+      padding:9px 10px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+      font-size:14px;
+      color:var(--muted);
+      cursor:pointer;
+      transition:.15s;
+    }
+    .menu li i{font-size:18px;}
+    .menu li.active,
+    .menu li:hover{
+      background:rgba(15,23,42,0.9);
+      color:#e5e7eb;
+    }
+
+    .sidebar-bottom{
+      margin-top:auto;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .main{
+      flex:1;
+      background: radial-gradient(circle at top left,rgba(15,118,255,0.18),transparent 55%),
+                  radial-gradient(circle at bottom right,rgba(124,58,237,0.18),transparent 60%),
+                  #020617;
+      padding:20px 24px 24px;
+      overflow-y:auto;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+    .topbar-left h1{
+      font-size:22px;
+      font-weight:600;
+      margin-bottom:4px;
+    }
+    .topbar-left p{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .profile{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(15,23,42,0.95);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.4);
+    }
+    .avatar{
+      width:32px;height:32px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      display:grid;place-items:center;
+      font-size:17px;
+      font-weight:600;
+    }
+    .profile-info{
+      display:flex;
+      flex-direction:column;
+    }
+    .profile-info span:first-child{
+      font-size:13px;font-weight:500;
+    }
+    .profile-info span:last-child{
+      font-size:11px;color:var(--muted);
+    }
+
+    /* Stats cards */
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:22px;
+    }
+    .stat-card{
+      background:rgba(15,23,42,0.96);
+      border-radius:var(--radius);
+      padding:14px 14px 12px;
+      border:1px solid rgba(148,163,184,0.35);
+      box-shadow:0 16px 45px rgba(0,0,0,0.75);
+      position:relative;
+      overflow:hidden;
+    }
+    .stat-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:8px;
+    }
+    .stat-title{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .stat-icon{
+      width:30px;height:30px;border-radius:10px;
+      display:grid;place-items:center;
+      background:radial-gradient(circle at top,var(--accent),var(--accent-2));
+      font-size:17px;
+    }
+    .stat-value{
+      font-size:26px;
+      font-weight:700;
+    }
+    .stat-foot{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    .stat-badge{
+      position:absolute;
+      right:10px;bottom:10px;
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:rgba(15,118,255,0.15);
+      color:#bae6fd;
+    }
+
+    /* Two-column main content */
+    .content-grid{
+      display:grid;
+      grid-template-columns:2.1fr 1.4fr;
+      gap:16px;
+    }
+
+    .card{
+      background:rgba(15,23,42,0.97);
+      border-radius:var(--radius);
+      padding:14px 14px 12px;
+      border:1px solid rgba(148,163,184,0.35);
+      box-shadow:0 14px 40px rgba(0,0,0,0.9);
+    }
+    .card-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .card-header h2{
+      font-size:15px;
+      font-weight:600;
+    }
+    .card-header span{
+      font-size:12px;color:var(--muted);
+    }
+
+    /* Table */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+      margin-top:4px;
+    }
+    thead{
+      color:var(--muted);
+    }
+    th,td{
+      padding:8px 6px;
+      text-align:left;
+      border-bottom:1px solid rgba(30,41,59,0.9);
+    }
+    tbody tr:hover{
+      background:rgba(15,23,42,0.9);
+    }
+    .tag{
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      display:inline-block;
+    }
+    .tag.pending{
+      background:rgba(251,191,36,0.18);
+      color:#fde68a;
+    }
+    .tag.completed{
+      background:rgba(34,197,94,0.18);
+      color:#bbf7d0;
+    }
+    .tag.failed{
+      background:rgba(248,113,113,0.16);
+      color:#fecaca;
+    }
+
+    /* Pickup card (similar concept to landing page) */
+    .pickup-form label{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+    .pickup-form input,
+    .pickup-form select{
+      width:100%;
+      padding:9px 10px;
+      border-radius:11px;
+      border:1px solid rgba(148,163,184,0.4);
+      background:rgba(15,23,42,0.95);
+      color:#e5e7eb;
+      font-size:13px;
+      outline:none;
+      margin-bottom:10px;
+    }
+    .pickup-form input::placeholder{
+      color:#6b7280;
+    }
+
+    .slots{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:10px;
+    }
+    .slot-btn{
+      padding:7px 12px;
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.5);
+      background:transparent;
+      color:#e5e7eb;
+      cursor:pointer;
+      transition:.15s;
+    }
+    .slot-btn.active{
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#020617;
+      border-color:transparent;
+    }
+
+    .btn-main{
+      width:100%;
+      padding:10px 0;
+      border-radius:12px;
+      border:none;
+      outline:none;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#020617;
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      box-shadow:0 12px 38px rgba(0,0,0,0.9);
+      transition:.15s;
+    }
+    .btn-main:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 46px rgba(15,23,42,1);
+    }
+
+    .hint{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:6px;
+    }
+
+    @media(max-width:960px){
+      .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .content-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:760px){
+      .sidebar{display:none;}
+      body{display:block;}
+      .main{min-height:100vh;}
+    }
+  </style>
 </head>
 <body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <div class="brand-logo"><i class="ri-capsule-fill"></i></div>
+        <span>MediFlow</span>
+      </div>
 
-<div class="layout">
+      <ul class="menu">
+        <li class="active"><i class="ri-dashboard-line"></i>Dashboard</li>
+        <li><i class="ri-upload-2-line"></i>My Medicines</li>
+        <li><i class="ri-map-pin-time-line"></i>Pickups</li>
+        <li><i class="ri-community-line"></i>NGO Requests</li>
+        <li><i class="ri-settings-3-line"></i>Settings</li>
+      </ul>
+    </div>
 
-    
-    <aside class="sidebar">
-        <h2 class="sidebar-logo"><i class="ri-capsule-fill"></i> MediFlow</h2>
-        <ul class="sidebar-menu">
-            <li class="active"><i class="ri-home-5-line"></i> Home</li>
-            <li><i class="ri-search-eye-line"></i> Lens</li>
-            <li><i class="ri-user-3-line"></i> Account</li>
-            <li><i class="ri-search-line"></i> Search</li>
-            <li><i class="ri-star-smile-line"></i> What's New</li>
-            <li><i class="ri-group-line"></i> Customers</li>
-            <li><i class="ri-tools-line"></i> Services</li>
-        </ul>
-    </aside>
+    <div class="sidebar-bottom">
+      <div>Good medicines. Faster reach.</div>
+    </div>
+  </aside>
 
-    
-    <main class="dashboard">
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1>Dashboard</h1>
+        <p>Overview of your donations, pickups and NGO activity.</p>
+      </div>
+      <div class="profile">
+        <div class="avatar">SR</div>
+        <div class="profile-info">
+          <span>Sai Reddy</span>
+          <span>Donor account</span>
+        </div>
+        <i class="ri-arrow-down-s-line" style="font-size:18px;color:var(--muted);"></i>
+      </div>
+    </header>
 
-        
-        <div class="topbar">
-            <h1>Dashboard</h1>
-            <div class="profile">
-                <img src="saireddy.jpg" alt="user">
-                <span>Sai Reddy</span>
-            </div>
+    <!-- Stats -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">Medicines uploaded</span>
+          <div class="stat-icon"><i class="ri-capsule-line"></i></div>
+        </div>
+        <div class="stat-value">34</div>
+        <div class="stat-foot">+6 this week</div>
+        <span class="stat-badge">Donations</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">Pending pickups</span>
+          <div class="stat-icon"><i class="ri-truck-line"></i></div>
+        </div>
+        <div class="stat-value">5</div>
+        <div class="stat-foot">2 scheduled today</div>
+        <span class="stat-badge">Logistics</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">NGO requests</span>
+          <div class="stat-icon"><i class="ri-hand-heart-line"></i></div>
+        </div>
+        <div class="stat-value">12</div>
+        <div class="stat-foot">4 awaiting confirmation</div>
+        <span class="stat-badge">Impact</span>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content-grid">
+      <!-- Left: recent activity -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Recent pickups</h2>
+          <span>Last 7 days</span>
         </div>
 
-        
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="icon-box blue"><i class="ri-capsule-line"></i></div>
-                <h3>Uploaded Medicines</h3>
-                <p>34</p>
-            </div>
-            <div class="stat-card">
-                <div class="icon-box green"><i class="ri-truck-line"></i></div>
-                <h3>Pending Pickups</h3>
-                <p>5</p>
-            </div>
-            <div class="stat-card">
-                <div class="icon-box purple"><i class="ri-hand-heart-line"></i></div>
-                <h3>NGO Requests</h3>
-                <p>12</p>
-            </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Pickup ID</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Slot</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#PK1123</td>
+              <td>Madhapur, Hyderabad</td>
+              <td>05 Dec</td>
+              <td>10–12</td>
+              <td><span class="tag pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>#PK1119</td>
+              <td>KPHB, Hyderabad</td>
+              <td>04 Dec</td>
+              <td>12–14</td>
+              <td><span class="tag completed">Completed</span></td>
+            </tr>
+            <tr>
+              <td>#PK1115</td>
+              <td>SR Nagar, Hyderabad</td>
+              <td>03 Dec</td>
+              <td>16–18</td>
+              <td><span class="tag completed">Completed</span></td>
+            </tr>
+            <tr>
+              <td>#PK1110</td>
+              <td>JNTU, Hyderabad</td>
+              <td>02 Dec</td>
+              <td>14–16</td>
+              <td><span class="tag failed">Cancelled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Right: quick pickup scheduling -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Quick pickup schedule</h2>
+          <span>Schedule a new pickup in seconds</span>
         </div>
 
-        
-       <center> <section class="pickup-card">
-            <h2><i class="ri-map-pin-time-line"></i> Pickup Scheduling</h2>
-            <form id="pickupForm">
-                <div class="form-group">
-                    <label>Pickup Address</label>
-                    <input type="text" id="address" placeholder="Enter pickup address" required>
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="pickupDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Time Slot</label>
-                    <div class="time-slots">
-                        <button type="button">10 AM – 12 PM</button>
-                        <button type="button">12 PM – 2 PM</button>
-                        <button type="button">2 PM – 4 PM</button>
-                        <button type="button">4 PM – 6 PM</button>
-                    </div>
-                </div>
-                <button type="submit" class="confirm-btn">Confirm Pickup</button>
-            </form>
-        </section>
-    </center>
+        <form class="pickup-form">
+          <label for="addr">Pickup address</label>
+          <input id="addr" type="text" placeholder="Flat / street / area" required>
 
-    </main>
+          <label for="date">Date</label>
+          <input id="date" type="date" required>
 
-</div>
+          <label>Time slot</label>
+          <div class="slots">
+            <button type="button" class="slot-btn">10–12</button>
+            <button type="button" class="slot-btn">12–14</button>
+            <button type="button" class="slot-btn">14–16</button>
+            <button type="button" class="slot-btn">16–18</button>
+          </div>
 
-<script src="pickup.js"></script>
+          <button type="submit" class="btn-main">Confirm pickup</button>
+          <p class="hint">Pickup partners will confirm and update the status in real-time.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple slot selection behaviour
+    const slots = document.querySelectorAll('.slot-btn');
+    slots.forEach(btn => {
+      btn.addEventListener('click', () => {
+        slots.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>

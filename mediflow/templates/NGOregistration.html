@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MediFlow — Create Account</title>
+  <title>MediFlow — NGO Registration</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
@@ -31,7 +31,7 @@
       padding:16px;
     }
 
-    .auth-wrapper{width:100%;max-width:500px;}
+    .auth-wrapper{width:100%;max-width:520px;}
     .auth-card{
       background:radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 55%),
                  linear-gradient(145deg, rgba(15,23,36,0.97), rgba(4,7,18,0.99));
@@ -41,9 +41,7 @@
       border:1px solid rgba(148,163,184,0.25);
     }
 
-    .brand{
-      display:flex;align-items:center;gap:10px;margin-bottom:10px;
-    }
+    .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
     .brand-logo{
       width:42px;height:42px;border-radius:14px;
       background:linear-gradient(135deg,var(--accent),var(--accent-2));
@@ -79,7 +77,7 @@
       border:1px solid rgba(148,163,184,0.38);
     }
     .input-wrap i{font-size:18px;color:var(--muted);}
-    .input-wrap input{
+    .input-wrap input, .input-wrap select{
       border:none;
       outline:none;
       background:transparent;
@@ -90,9 +88,7 @@
     .input-wrap input::placeholder{color:#6b7280;}
 
     .extra-note{
-      font-size:11px;
-      color:var(--muted);
-      margin-top:2px;
+      font-size:11px;color:var(--muted);margin-top:2px;
     }
 
     .btn-primary{
@@ -133,42 +129,86 @@
       .grid-2{grid-template-columns:1fr;}
     }
   </style>
+
 </head>
 <body>
+
   <div class="auth-wrapper">
     <div class="auth-card">
+
       <div class="brand">
-        <div class="brand-logo"><i class="ri-capsule-fill"></i></div>
+        <div class="brand-logo"><i class="ri-community-fill"></i></div>
         <span>MediFlow</span>
       </div>
 
-      <h1 class="auth-title">Create your account</h1>
-      <p class="auth-sub">Join MediFlow and start donating or managing medicine pickups.</p>
+      <h1 class="auth-title">Register as NGO</h1>
+      <p class="auth-sub">Join MediFlow to collect, manage, and redistribute donated medicines.</p>
 
       <form>
+
+        <div class="form-group">
+          <label for="ngo_name">NGO Name</label>
+          <div class="input-wrap">
+            <i class="ri-building-line"></i>
+            <input id="ngo_name" type="text" placeholder="Helping Hands Foundation" required>
+          </div>
+        </div>
+
         <div class="grid-2">
           <div class="form-group">
-            <label for="fullname">Full name</label>
+            <label for="reg_no">Registration Number</label>
             <div class="input-wrap">
-              <i class="ri-user-line"></i>
-              <input id="fullname" type="text" placeholder="Sai Reddy" required>
+              <i class="ri-barcode-line"></i>
+              <input id="reg_no" type="text" placeholder="NGO/REG/12345" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="phone">Phone</label>
+            <label for="ngo_type">NGO Type</label>
             <div class="input-wrap">
-              <i class="ri-phone-line"></i>
-              <input id="phone" type="tel" placeholder="+91 98765 43210" required>
+              <i class="ri-folders-line"></i>
+              <select id="ngo_type" required>
+                <option value="" disabled selected>Select type</option>
+                <option>Healthcare NGO</option>
+                <option>Charitable Trust</option>
+                <option>Medical Support Group</option>
+                <option>Community Welfare Organization</option>
+              </select>
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="email">Email address</label>
+          <label for="contact_person">Contact Person</label>
           <div class="input-wrap">
-            <i class="ri-mail-line"></i>
-            <input id="email" type="email" placeholder="you@example.com" required>
+            <i class="ri-user-heart-line"></i>
+            <input id="contact_person" type="text" placeholder="Raghav Rao" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Office Address</label>
+          <div class="input-wrap">
+            <i class="ri-map-pin-line"></i>
+            <input id="address" type="text" placeholder="Hyderabad, Telangana" required>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="input-wrap">
+              <i class="ri-phone-line"></i>
+              <input id="phone" type="tel" placeholder="+91 98765 43210" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrap">
+              <i class="ri-mail-line"></i>
+              <input id="email" type="email" placeholder="ngo@example.com" required>
+            </div>
           </div>
         </div>
 
@@ -177,29 +217,31 @@
             <label for="password">Password</label>
             <div class="input-wrap">
               <i class="ri-lock-2-line"></i>
-              <input id="password" type="password" placeholder="Create a password" required>
+              <input id="password" type="password" placeholder="Create password" required>
             </div>
-            <p class="extra-note">Min 8 characters for better security.</p>
+            <p class="extra-note">Min 8 characters for security.</p>
           </div>
 
           <div class="form-group">
-            <label for="confirm">Confirm password</label>
+            <label for="confirm">Confirm Password</label>
             <div class="input-wrap">
               <i class="ri-lock-password-line"></i>
-              <input id="confirm" type="password" placeholder="Re‑enter password" required>
+              <input id="confirm" type="password" placeholder="Re-enter password" required>
             </div>
           </div>
         </div>
 
-        <button type="submit" class="btn-primary">Create account</button>
+        <button type="submit" class="btn-primary">Register NGO</button>
+
       </form>
 
       <p class="auth-footer">
-        Already have an account?
+        Already registered?
         <a href="{% url 'home' %}">Login</a>
-        <!-- Django: href="{% url 'home' %}" -->
       </p>
+
     </div>
   </div>
+
 </body>
 </html>
