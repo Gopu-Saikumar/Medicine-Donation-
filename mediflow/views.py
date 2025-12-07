@@ -14,4 +14,7 @@ def NGOlogin(request):
     return render(request,'NGOlogin.html')
 
 def NGOregistration(request):
-    return render(request,'NGOregistration.html')    
+    return render(request,'NGOregistration.html')   
+
+def NGOdashboard(request):
+    return render(request, 'NGOdashboard.html') 

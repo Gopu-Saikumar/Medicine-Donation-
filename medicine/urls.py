@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from mediflow.views import home,registration,dashboard,landing,NGOlogin,NGOregistration
+from mediflow.views import home,registration,dashboard,landing,NGOlogin,NGOregistration,NGOdashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('registration/',registration, name='registration'),
     path('dashboard/',dashboard, name='dashboard'),
     path('NGOlogin/',NGOlogin,name='NGOlogin'),
-    path('NGOregistration/',NGOregistration,name='NGOregistration')
+    path('NGOregistration/',NGOregistration,name='NGOregistration'),
+    path('NGOdashboard/',NGOdashboard,name='NGOdashboard')
 ]
