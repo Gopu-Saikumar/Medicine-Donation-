@@ -144,13 +144,14 @@
       <h1 class="auth-title">Register as NGO</h1>
       <p class="auth-sub">Join MediFlow to collect, manage, and redistribute donated medicines.</p>
 
-      <form>
+      <form method="POST">
+        {% csrf_token %}
 
         <div class="form-group">
           <label for="ngo_name">NGO Name</label>
           <div class="input-wrap">
             <i class="ri-building-line"></i>
-            <input id="ngo_name" type="text" placeholder="Helping Hands Foundation" required>
+            <input id="ngo_name" type="text" placeholder="Helping Hands Foundation" required name="ngoname">
           </div>
         </div>
 
@@ -159,7 +160,7 @@
             <label for="reg_no">Registration Number</label>
             <div class="input-wrap">
               <i class="ri-barcode-line"></i>
-              <input id="reg_no" type="text" placeholder="NGO/REG/12345" required>
+              <input id="reg_no" type="text" placeholder="NGO/REG/12345" required name="rno">
             </div>
           </div>
 
@@ -179,18 +180,18 @@
         </div>
 
         <div class="form-group">
-          <label for="contact_person">Contact Person</label>
+          <label for="contact_person">Contact Person </label>
           <div class="input-wrap">
             <i class="ri-user-heart-line"></i>
-            <input id="contact_person" type="text" placeholder="Raghav Rao" required>
+            <input id="contact_person" type="text" placeholder="Raghav Rao" required  name="cperson">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="address">Office Address</label>
+          <label for="address" >Office Address</label>
           <div class="input-wrap">
             <i class="ri-map-pin-line"></i>
-            <input id="address" type="text" placeholder="Hyderabad, Telangana" required>
+            <input id="address" type="text" placeholder="Hyderabad, Telangana" required name="address">
           </div>
         </div>
 
@@ -199,7 +200,7 @@
             <label for="phone">Phone Number</label>
             <div class="input-wrap">
               <i class="ri-phone-line"></i>
-              <input id="phone" type="tel" placeholder="+91 98765 43210" required>
+              <input id="phone" type="tel" placeholder="+91 98765 43210" required name="phone">
             </div>
           </div>
 
@@ -207,7 +208,7 @@
             <label for="email">Email Address</label>
             <div class="input-wrap">
               <i class="ri-mail-line"></i>
-              <input id="email" type="email" placeholder="ngo@example.com" required>
+              <input id="email" type="email" placeholder="ngo@example.com" required name="email">
             </div>
           </div>
         </div>
@@ -217,7 +218,7 @@
             <label for="password">Password</label>
             <div class="input-wrap">
               <i class="ri-lock-2-line"></i>
-              <input id="password" type="password" placeholder="Create password" required>
+              <input id="password" type="password" placeholder="Create password" required name="password">
             </div>
             <p class="extra-note">Min 8 characters for security.</p>
           </div>

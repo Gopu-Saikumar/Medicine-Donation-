@@ -99,6 +99,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'mediflow.User'
+
+AUTHENTICATION_BACKENDS = [
+    "mediflow.backends.EmailAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",  # default fallback
+]
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
