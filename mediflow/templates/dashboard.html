@@ -359,11 +359,11 @@
         <h1>Dashboard</h1>
         <p>Overview of your donations, pickups and NGO activity.</p>
       </div>
-      <div class="profile">
-        <div class="avatar">SR</div>
+      <div class="profile" onclick="toggleMenu()">
+        <div class="avatar">{{request.user.fullname|slice:":2"|upper }}</div>
         <div class="profile-info">
-          <span>Sai Reddy</span>
-          <span>Donor account</span>
+          <span>{{request.user.fullname}}</span>
+          <span>{{request.user.email}}</span>
         </div>
         <i class="ri-arrow-down-s-line" style="font-size:18px;color:var(--muted);"></i>
       </div>
@@ -492,6 +492,11 @@
         btn.classList.add('active');
       });
     });
+
+    function toggleMenu(){
+      const dd=document.getElementById("dropdown");
+      dd.style.display=dd.style.display === "block" ? "none" : "block";
+    }
   </script>
 </body>
 </html>

@@ -178,12 +178,13 @@
       <h1 class="auth-title">Welcome back</h1>
       <p class="auth-sub">Login to manage your donations and pickups.</p>
 
-      <form>
+      <form method="POST" action="{% url 'dashboard' %}">
+         {% csrf_token %}
         <div class="form-group">
           <label for="email">Email</label>
           <div class="input-wrap">
             <i class="ri-mail-line"></i>
-            <input id="email" type="email" placeholder="you@example.com" required>
+            <input id="email" type="email" placeholder="you@example.com" required name="email">
           </div>
         </div>
 
@@ -191,7 +192,7 @@
           <label for="password">Password</label>
           <div class="input-wrap">
             <i class="ri-lock-2-line"></i>
-            <input id="password" type="password" placeholder="Enter your password" required>
+            <input id="password" type="password" placeholder="Enter your password" required name="password">
           </div>
         </div>
 

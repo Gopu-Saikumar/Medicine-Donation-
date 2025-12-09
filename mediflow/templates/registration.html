@@ -145,13 +145,14 @@
       <h1 class="auth-title">Create your account</h1>
       <p class="auth-sub">Join MediFlow and start donating or managing medicine pickups.</p>
 
-      <form>
+   <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
         <div class="grid-2">
           <div class="form-group">
             <label for="fullname">Full name</label>
             <div class="input-wrap">
               <i class="ri-user-line"></i>
-              <input id="fullname" type="text" placeholder="Sai Reddy" required>
+              <input id="fullname" type="text" placeholder="Sai Reddy" required name="fullname">
             </div>
           </div>
 
@@ -159,7 +160,7 @@
             <label for="phone">Phone</label>
             <div class="input-wrap">
               <i class="ri-phone-line"></i>
-              <input id="phone" type="tel" placeholder="+91 98765 43210" required>
+              <input id="phone" type="tel" placeholder="+91 98765 43210" required name="phone">
             </div>
           </div>
         </div>
@@ -168,7 +169,7 @@
           <label for="email">Email address</label>
           <div class="input-wrap">
             <i class="ri-mail-line"></i>
-            <input id="email" type="email" placeholder="you@example.com" required>
+            <input id="email" type="email" placeholder="you@example.com" required name="email">
           </div>
         </div>
 
@@ -177,7 +178,7 @@
             <label for="password">Password</label>
             <div class="input-wrap">
               <i class="ri-lock-2-line"></i>
-              <input id="password" type="password" placeholder="Create a password" required>
+              <input id="password" type="password" placeholder="Create a password" required name="password">
             </div>
             <p class="extra-note">Min 8 characters for better security.</p>
           </div>
@@ -186,7 +187,7 @@
             <label for="confirm">Confirm password</label>
             <div class="input-wrap">
               <i class="ri-lock-password-line"></i>
-              <input id="confirm" type="password" placeholder="Re‑enter password" required>
+              <input id="confirm" type="password" placeholder="Re‑enter password" required name="confirm">
             </div>
           </div>
         </div>
