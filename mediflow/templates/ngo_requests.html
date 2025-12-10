@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% include "dashboard_base.html" %}
+
+{% block content %}
+<div class="topbar-left">
+    <h1>NGO Requests</h1>
+    <p>NGOs requesting medicines from you.</p>
+</div>
+
+<div class="card" style="margin-top:18px;">
+    <div class="card-header">
+        <h2>Requests Received</h2>
+        <span>Requested medicines from NGOs</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>NGO Name</th>
+                <th>Medicine</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for req in reqs %}
+            <tr>
+                <td>{{ req.ngo.fullname }}</td>
+                <td>{{ req.medicine.name }}</td>
+                <td>{{ req.created_at|date:"d M Y" }}</td>
+                <td>
+                    {% if req.status == "pending" %}
+                        <span class="tag pending">Pending</span>
+                    {% elif req.status == "approved" %}
+                        <span class="tag completed">Approved</span>
+                    {% else %}
+                        <span class="tag failed">Rejected</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align:center;color:var(--muted);padding:12px;">
+                    No NGO requests yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+</body>
+</html>

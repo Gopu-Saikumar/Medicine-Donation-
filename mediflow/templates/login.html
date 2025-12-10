@@ -178,7 +178,7 @@
       <h1 class="auth-title">Welcome back</h1>
       <p class="auth-sub">Login to manage your donations and pickups.</p>
 
-      <form method="POST" action="{% url 'dashboard' %}">
+      <form method="POST" action="{% url 'login' %}">
          {% csrf_token %}
         <div class="form-group">
           <label for="email">Email</label>
@@ -205,12 +205,12 @@
         </div>
 
         <button type="submit" class="btn-primary">Login</button>
+
       </form>
 
       <p class="auth-footer">
         Don’t have an account?
-        <a href="{% url 'registration' %}">Create one</a>
-        <!-- In Django: href="{% url 'registration' %}" -->
+        <a href="{% url 'register' %}">Create one</a>
       </p>
     </div>
   </div>

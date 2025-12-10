@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% include "dashboard_base.html" %}
+
+{% block content %}
+<div class="topbar-left">
+    <h1>Pickups</h1>
+    <p>Track all your scheduled medicine pickups.</p>
+</div>
+
+<div class="card" style="margin-top:18px;">
+    <div class="card-header">
+        <h2>Pickup History</h2>
+        <span>All pickup requests made</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>Date</th>
+                <th>Slot</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pickups %}
+            <tr>
+                <td>{{ p.address }}</td>
+                <td>{{ p.date }}</td>
+                <td>{{ p.slot }}</td>
+                <td>
+                    {% if p.status == "pending" %}
+                        <span class="tag pending">Pending</span>
+                    {% elif p.status == "completed" %}
+                        <span class="tag completed">Completed</span>
+                    {% else %}
+                        <span class="tag failed">Cancelled</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align:center;color:var(--muted);padding:12px;">
+                    No pickups scheduled yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+</body>
+</html>

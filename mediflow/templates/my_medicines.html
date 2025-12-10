@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-section">
+    <h2 class="section-title">My Medicines</h2>
+
+    <a href="{% url 'add_medicine' %}" class="add-btn">+ Add New Medicine</a>
+
+    <div class="medicine-list">
+        {% for med in medicines %}
+            <div class="medicine-card">
+                <h3>{{ med.name }}</h3>
+                <p>{{ med.description }}</p>
+                <p><strong>Expiry:</strong> {{ med.expiry_date }}</p>
+                <p><strong>Added:</strong> {{ med.created_at }}</p>
+            </div>
+        {% empty %}
+            <p>No medicines added yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+</body>
+</html>

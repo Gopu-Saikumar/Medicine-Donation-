@@ -339,12 +339,21 @@
       </div>
 
       <ul class="menu">
-        <li class="active"><i class="ri-dashboard-line"></i>Dashboard</li>
-        <li><i class="ri-upload-2-line"></i>My Medicines</li>
-        <li><i class="ri-map-pin-time-line"></i>Pickups</li>
-        <li><i class="ri-community-line"></i>NGO Requests</li>
-        <li><i class="ri-settings-3-line"></i>Settings</li>
-      </ul>
+  <li class="{% if request.path == '/dashboard/' %}active{% endif %}">
+    <a href="{% url 'dashboard' %}"><i class="ri-dashboard-line"></i>Dashboard</a>
+  </li>
+
+  <li><a href="{% url 'my_medicines' %}"><i class="ri-upload-2-line"></i>My Medicines</a></li>
+
+  <li><a href="{% url 'pickups' %}"><i class="ri-map-pin-time-line"></i>Pickups</a></li>
+
+  <li><a href="{% url 'ngo_requests' %}"><i class="ri-community-line"></i>NGO Requests</a></li>
+
+  <li><a href="{% url 'settings' %}"><i class="ri-settings-3-line"></i>Settings</a></li>
+
+  <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+
     </div>
 
     <div class="sidebar-bottom">
