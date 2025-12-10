@@ -144,7 +144,7 @@
       <h1 class="auth-title">Register as NGO</h1>
       <p class="auth-sub">Join MediFlow to collect, manage, and redistribute donated medicines.</p>
 
-      <form method="POST">
+      <form method="POST" action="{% url 'NGOregistration' %}" >
         {% csrf_token %}
 
         <div class="form-group">
@@ -168,7 +168,7 @@
             <label for="ngo_type">NGO Type</label>
             <div class="input-wrap">
               <i class="ri-folders-line"></i>
-              <select id="ngo_type" required>
+              <select id="ngo_type"  required>
                 <option value="" disabled selected>Select type</option>
                 <option>Healthcare NGO</option>
                 <option>Charitable Trust</option>
@@ -227,7 +227,7 @@
             <label for="confirm">Confirm Password</label>
             <div class="input-wrap">
               <i class="ri-lock-password-line"></i>
-              <input id="confirm" type="password" placeholder="Re-enter password" required>
+              <input id="confirm" name="confirm" type="password" placeholder="Re-enter password" required>
             </div>
           </div>
         </div>
