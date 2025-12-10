@@ -74,3 +74,57 @@ class NGOProfile(models.Model):
 
     def __str__(self):
         return self.ngo_name
+
+# medicines
+class Medicine(models.Model):
+    CATEGORY_CHOICES = [
+        ('Tablet', 'Tablet'),
+        ('Capsule', 'Capsule'),
+        ('Syrup', 'Syrup'),
+        ('Injection', 'Injection'),
+        ('Drops', 'Drops'),
+        ('Ointment', 'Ointment'),
+        ('Other', 'Other'),
+    ]
+    donor = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES,default='Tablet')
+    brand = models.CharField(max_length=200, blank=True)
+    quantity = models.IntegerField()
+    expiry_date = models.DateField()
+    description = models.TextField(blank=True)
+    # ADD THIS FIELD
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.donor.fullname}"
+
+
+# pickup requests
+class Pickup(models.Model):
+    donor = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length=255)
+    date = models.DateField()
+    slot = models.CharField(max_length=20)  # e.g., "10-12"
+    status = models.CharField(
+        max_length=20,
+        choices=[("pending","Pending"),("completed","Completed"),("cancelled","Cancelled")],
+        default="pending"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+
+# ngo requests model
+class NGORequest(models.Model):
+    ngo = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ngo_requests")
+    donor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="donor_requests")
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=20,
+        choices=[("pending","Pending"),("approved","Approved"),("rejected","Rejected")],
+        default="pending"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+

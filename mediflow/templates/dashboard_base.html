@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediFlow Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --card-light: #1c2128;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --primary: #238636;
+            --primary-dark: #1f7a31;
+            --danger: #da3633;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: var(--card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            position: fixed;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar .active {
+            background: var(--primary);
+        }
+
+        /* Main container */
+        .main {
+            margin-left: 240px;
+            padding: 25px;
+            width: calc(100% - 240px);
+        }
+
+        /* Topbar */
+        .topbar-left h1 {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .topbar-left p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--card-light);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+        }
+
+        .card-header span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Buttons */
+        .btn-main {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn-main:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 11px;
+        }
+
+        .pending {
+            background: #b38f00;
+        }
+        .completed {
+            background: #238636;
+        }
+        .failed {
+            background: #da3633;
+        }
+
+        /* Form */
+        .pickup-form input, .pickup-form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 6px;
+        }
+
+        .pickup-form label {
+            font-size: 14px;
+            margin-bottom: 4px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>MediFlow</h2>
+
+        <!-- Auto-detect active page -->
+        <a href="{% url 'dashboard' %}" class="{% if request.path == '/dashboard/' %}active{% endif %}">
+            Dashboard
+        </a>
+
+        <a href="{% url 'my_medicines' %}" class="{% if request.path == '/my_medicines/' %}active{% endif %}">
+            My Medicines
+        </a>
+
+        <a href="{% url 'pickups' %}" class="{% if request.path == '/pickups/' %}active{% endif %}">
+            Pickups
+        </a>
+
+        <a href="{% url 'ngo_requests' %}" class="{% if request.path == '/ngo_requests/' %}active{% endif %}">
+            NGO Requests
+        </a>
+
+        <a href="{% url 'settings' %}" class="{% if request.path == '/settings/' %}active{% endif %}">
+            Settings
+        </a>
+
+        <a href="{% url 'logout' %}" style="color:#da3633;">
+            Logout
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

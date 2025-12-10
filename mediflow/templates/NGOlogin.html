@@ -178,7 +178,7 @@
       <h1 class="auth-title">Welcome back</h1>
       <p class="auth-sub">Login to manage your Redistributions and pickups.</p>
 
-      <form method="post">
+      <form method="post" action="{% url 'NGOlogin' %}">
         {% csrf_token %}
         <div class="form-group">
           <label for="email">Email</label>
@@ -210,7 +210,6 @@
       <p class="auth-footer">
         Don’t have an account?
         <a href="{% url 'NGOregistration' %}">Create one</a>
-        <!-- In Django: href="{% url 'registration' %}" -->
       </p>
     </div>
   </div>
